@@ -1,0 +1,143 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<import resource="dao-config.xml" />
+	<context:component-scan base-package="com.footballreservation.*" />
+
+	<security:http use-expressions="true"
+		disable-url-rewriting="true" auto-config="true">
+
+		<security:intercept-url pattern="/resources/**"
+			access="permitAll()" />
+
+		<!-- User Security Controller -->
+
+		<security:intercept-url pattern="/UserPayement"
+			access="hasRole('USER')" />
+		<security:intercept-url pattern="/payement"
+			access="hasRole('USER')" />
+		<security:intercept-url pattern="/TicketPayement"
+			access="hasRole('USER')" />
+		<security:intercept-url pattern="/PasswordAlter"
+			access="hasRole('USER')" />
+		<security:intercept-url pattern="/profileAlter"
+			access="hasRole('USER')" />
+		<security:intercept-url pattern="/PasswordAlter"
+			access="hasRole('USER')" />
+		<security:intercept-url pattern="/Profile"
+			access="hasRole('USER')" />
+
+
+		<!-- Admin Security Controller -->
+
+		<security:intercept-url pattern="/ChangeState"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/InnactivUsers"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/MemberSearch"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/searchMember"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/UsersList"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/SearchMatch"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/MatchList"
+			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/AddMatchTunisiaEspoir"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/AddMatchTunisia"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/AddMatchCAF"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/AddMatchCup"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/AddMatchLigue2"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/AddMatchLigue1"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/AdminPage"
+			access="hasRole('ADMIN')" />
+
+
+
+		<!-- SuperAdmin Security Controller -->
+
+		<security:intercept-url pattern="/AdminSearch"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/SearchAdmin"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/AdminsList"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/alterPassword"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/AdminPasswordAlter"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/AdminAccount"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/profileForm"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/AdminRegistration"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/AddAdmin"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/SuperAdminAlterPassword"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/SuperAdminPasswordAlter"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/AdminAccountAlter"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/SuperAdminAccount"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/SuperAdminPage"
+			access="hasRole('SUPER')" />
+		<security:intercept-url pattern="/login"
+			access="permitAll()" />
+		<security:intercept-url pattern="/" access="permitAll()" />
+
+		<security:form-login login-page="/login"
+			authentication-failure-url="/failAuth?login_error"
+			always-use-default-target="false" password-parameter="password"
+			username-parameter="username" />
+		<security:logout delete-cookies="JSESSIONID"
+			logout-success-url='/login?logout' logout-url="/Logout"
+			invalidate-session="true" />
+		<security:csrf disabled="false" />
+
+		<security:remember-me data-source-ref="dataSource"
+			user-service-ref="customAdminDetailsService" remember-me-parameter="remember-me"
+			token-validity-seconds="1209600" />
+
+		<security:remember-me data-source-ref="dataSource"
+			user-service-ref="customUserDetailsService" remember-me-parameter="remember-me"
+			token-validity-seconds="1209600" />
+	</security:http>
+	
+	<security:authentication-manager>
+	
+		<security:authentication-provider
+			user-service-ref="customAdminDetailsService">
+			<security:password-encoder ref="encoder" />
+		</security:authentication-provider>
+		<security:authentication-provider
+			user-service-ref="customUserDetailsService">
+			<security:password-encoder ref="encoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<bean id="customAdminDetailsService"
+		class="com.footballreservation.reservation.CustomAdminDetailsService"></bean>
+	<bean id="customUserDetailsService"
+		class="com.footballreservation.reservation.CustomUserDetailsService"></bean>
+
+	<bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<constructor-arg name="strength" value="10" />
+	</bean>
+
+</beans>

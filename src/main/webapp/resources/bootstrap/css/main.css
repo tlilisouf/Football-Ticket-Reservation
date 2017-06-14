@@ -1,0 +1,160 @@
+.modal-footer {
+	display: inline-block;
+}
+
+/*caret Color*/
+.caret {
+	color: #5cb85c;
+}
+
+/* enable absolute positioning */
+.inner-addon {
+	position: relative;
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+	position: absolute;
+	padding: 10px;
+	pointer-events: none;
+}
+
+/* align icon */
+.right-addon .glyphicon {
+	right: 0px;
+}
+
+/* add padding  */
+.right-addon input {
+	padding-right: 30px;
+}
+
+/*Carousel Padding*/
+#ImporantEvents {
+	padding-bottom: 30px;
+}
+
+/*Footer*/
+#footer {
+	padding-top: 10px;
+	background-color: #F7F7F7;
+}
+
+.aboutus, .followUs, .message {
+	color: #2B8BC9;
+}
+
+.list-booking {
+	padding-top: 15px;
+}
+
+.info {
+	padding-bottom: 40px;
+}
+
+.block-header {
+	font: 900 30px/35px "Roboto", sans-serif;
+}
+
+/*Site information*/
+.post_info {
+	border: 2px solid #444;
+	margin-top: 40px;
+	position: relative;
+	text-align: center;
+}
+
+.post_info:hover {
+	background-color: #ccc;
+}
+
+/*Table Header*/
+.head {
+	background-color: #ccc;
+}
+
+th {
+	text-align: center;
+}
+
+/*jumborton center*/
+@media ( max-width : 1920px) {
+	.col-centered {
+		padding-top: 0px;
+		padding-bottom: 0px;
+		float: none;
+		margin: 120px auto;
+	}
+}
+
+.matchManagement {
+	margin-top: 50px;
+}
+
+#CopyRight {
+	display: block;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+}
+
+@media ( max-width : 767px) {
+	#welcome {
+		margin-top:40px;
+	}
+}
+
+.margin-nav {
+	margin-top: 155px;
+}
+
+.cup-tickets {
+	margin-top: 120px;
+}
+
+.read-more {
+	display: block;
+	font-weight: 700;
+	font-size: 150%;
+}
+
+.morecontent span {
+	display: none;
+}
+
+#PhoneNum, #CreditCard, #CVV {
+	display: none;
+}
+
+#logo {
+	padding: 0 !important;
+	margin-top: 100px;
+}
+
+/*
+#userListSearch,#innactifUsers {
+	display: none;
+}
+*/
+/* Set social icons color */
+#social-bar a {
+	margin-left: 5px;
+}
+
+#social-bar .fa-facebook-square {
+	color: #3B5998;
+}
+
+#social-bar .fa-twitter {
+	color: #00ACED;
+}
+
+#social-bar .fa-google-plus {
+	color: #E14107;
+}
+
+/*invalid inputs  */
+.invalid {
+	color: #843534;
+}

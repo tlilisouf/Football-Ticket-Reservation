@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<context:annotation-config />
+	<mvc:annotation-driven />
+	<tx:annotation-driven />
+	<context:component-scan base-package="com.footballreservation.*" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/ticketreservation?characterEncoding=UTF-8" />
+		<property name="username" value="root" />
+		<property name="password" value="Geek-TS" />
+		<property name="initialSize" value="20" />
+		<property name="maxActive" value="30" />
+
+	</bean>
+	<!-- Hibernate session factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.footballreservation.model.User</value>
+				<value>com.footballreservation.model.Admin</value>
+				<value>com.footballreservation.model.Role</value>
+				<value>com.footballreservation.model.Match</value>
+				<value>com.footballreservation.model.HistoryMatch</value>
+				<value>com.footballreservation.model.Reservation</value>
+				<value>com.footballreservation.model.Stadium</value>
+				<value>com.footballreservation.model.Payement</value>
+				<value>com.footballreservation.model.Tournament</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLInnoDBDialect
+				</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+				<prop key="hibernate.connection.characterEncoding">UTF-8</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="role" class="com.footballreservation.model.Role"></bean>
+	<bean id="roleDao" class="com.footballreservation.users.RoleDaoImpl"></bean>
+
+	<bean id="user" class="com.footballreservation.model.User"></bean>
+	<bean id="userDao" class="com.footballreservation.users.UserDaoImpl"></bean>
+
+	<bean id="admin" class="com.footballreservation.model.Admin"></bean>
+	<bean id="adminDao" class="com.footballreservation.users.AdminDaoImpl"></bean>
+
+	<bean id="match" class="com.footballreservation.model.Match"></bean>
+	<bean id="matchDao" class="com.footballreservation.matchs.MatchDaoImpl"></bean>
+
+	<bean id="reservation" class="com.footballreservation.model.Reservation"></bean>
+	<bean id="reservationDao" class="com.footballreservation.reservation.ReservationDaoImpl"></bean>
+
+	<bean id="payement" class="com.footballreservation.model.Payement"></bean>
+	<bean id="payementDao" class="com.footballreservation.reservation.PayementDaoImpl"></bean>
+
+	<bean id="tournament" class="com.footballreservation.model.Tournament"></bean>
+	<bean id="stadium" class="com.footballreservation.model.Stadium"></bean>
+
+	<bean id="matchHistory" class="com.footballreservation.model.HistoryMatch"></bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>
